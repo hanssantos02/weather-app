@@ -5,17 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Minimal webpack template: vanilla JS + Babel, ESLint, Prettier, GitHub Pages deploy."
+      content="Field-station weather readout: search any street, read essentials at a glance. Powered by Visual Crossing Timeline."
     />
-    <title>Repo Template</title>
+    <title>Weather Station — Read the sky over any street</title>
   </head>
-  <body>
-    <p class="status" role="status"></p>
-    <form id="search-form">
-      <input id="search-input" type="search" placeholder="Location..." />
-      <button type="submit">Search</button>
-    </form>
-    <button class="unit-toggle" aria-pressed="false">Toggle Units</button>
-    <div class="weather-card"></div>
+  <body data-conditions="idle">
+    <div class="sky" aria-hidden="true">
+      <svg class="isobars" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <g fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M-40 120 C 200 90, 420 150, 640 115 S 1040 80, 1260 130" />
+          <path d="M-40 220 C 180 190, 440 250, 660 215 S 1060 180, 1260 230" />
+          <path d="M-40 320 C 200 290, 430 350, 650 315 S 1050 280, 1260 330" />
+          <path d="M-40 420 C 210 390, 440 450, 660 415 S 1040 380, 1260 430" />
+          <path d="M-40 520 C 190 490, 450 550, 670 515 S 1060 480, 1260 530" />
+          <path d="M-40 620 C 220 590, 430 650, 660 615 S 1050 580, 1260 630" />
+        </g>
+      </svg>
+      <span class="sun-well"></span>
+    </div>
+
+    <header class="bar">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2" />
+          <path
+            d="M16 8v8l5.5 3.2M7.5 20.5h17"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="brand-words">
+          <span class="brand-name">Weather Station</span>
+          <span class="brand-sub">field readout · visual crossing</span>
+        </span>
+      </div>
+      <div class="units" role="group" aria-label="Temperature units">
+        <button type="button" id="unit-f" aria-pressed="true">
+          <span aria-hidden="true">°</span>F
+        </button>
+        <button type="button" id="unit-c" aria-pressed="false">
+          <span aria-hidden="true">°</span>C
+        </button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="search-panel">
+        <h1>Read the sky over any street.</h1>
+        <p class="lede">
+          Type a city, a postcode, a road you are about to walk.
+        </p>
+        <form id="search-form" autocomplete="off">
+          <label class="visually-hidden" for="search-input">Location</label>
+          <input
+            id="search-input"
+            name="location"
+            type="search"
+            placeholder="Try “Kyoto”, “Lagos”, “90210”…"
+            enterkeyhint="search"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit">Search</button>
+        </form>
+        <p class="status" role="status"></p>
+      </section>
+
+      <section class="weather-card" aria-live="polite" aria-label="Current conditions"></section>
+
+      <footer class="foot">
+        <p>
+          Essentials lead: temperature, feels-like, high, condition. Humidity and wind ride
+          second. Your API key stays in this browser only.
+        </p>
+      </footer>
+    </main>
   </body>
 </html>
