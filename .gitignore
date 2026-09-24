@@ -144,3 +144,14 @@ vite.config.ts.timestamp-*
 
 # webpack build output
 dist/
+
+
+GLOSSARY.md
+MISSION.md
+NOTES.md
+RESOURCES.md
+SPEC.md
+assets/
+learning-records/
+lessons/
+reference/

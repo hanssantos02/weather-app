@@ -1,20 +1,33 @@
+/* Weather App base shell — agent-owned. Lesson 0002 pass: foundation only, no JS/HTML logic touched.
+   Future hooks: [data-conditions] on body for dynamic look, .weather-card populated by ui.js render(). */
 :root {
   color-scheme: light dark;
-  --bg: #ffffff;
+  --bg: #f0f5fa;
   --fg: #16161a;
-  --muted: #5f6368;
+  --muted: #5f6b7a;
   --accent: #2563eb;
-  --card: #f4f4f5;
+  --accent-ink: #ffffff;
+  --card: #ffffff;
+  --card-border: #dbe4ee;
+  --danger: #b91c1c;
+  --radius: 14px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f1115;
+    --bg: #0f141b;
     --fg: #f4f4f5;
     --muted: #a1a1aa;
-    --card: #1c1e24;
+    --card: #1a2230;
+    --card-border: #2b3548;
   }
 }
+
+/* Dynamic-look hooks for later (Lesson 0006): body[data-conditions="rain"] etc. */
+body[data-conditions='clear-day'] { --bg: #dff0ff; }
+body[data-conditions='rain'] { --bg: #cfd9e6; }
+body[data-conditions='snow'] { --bg: #eef2f7; }
+body[data-conditions='cloudy'] { --bg: #dde3ec; }
 
 * {
   box-sizing: border-box;
@@ -30,10 +43,12 @@ body {
     sans-serif;
   background: var(--bg);
   color: var(--fg);
+  transition: background 0.4s ease;
 }
 
+/* Keeps template counter working until learner replaces HTML */
 .app {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
   text-align: center;
@@ -51,9 +66,102 @@ body {
 
 .card {
   background: var(--card);
-  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
   padding: 1.5rem;
   margin: 2rem 0;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
+/* --- Weather shell (used from Lesson 0004 onward) --- */
+.weather-shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-row input[type='search'] {
+  flex: 1;
+  font: inherit;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  color: var(--fg);
+}
+
+.weather-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.4rem;
+  text-align: left;
+}
+
+.weather-card .temp {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.weather-card .meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.unit-toggle {
+  display: inline-flex;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.unit-toggle button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fg);
+  padding: 0.5rem 1rem;
+}
+
+.unit-toggle button[aria-pressed='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.status {
+  min-height: 1.6em;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.status[data-state='error'] {
+  color: var(--danger);
+}
+
+.spinner {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  vertical-align: -0.2em;
+  border: 2px solid var(--card-border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 button {
@@ -62,7 +170,7 @@ button {
   border-radius: 8px;
   border: 1px solid transparent;
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
   cursor: pointer;
 }
 
@@ -71,7 +179,7 @@ button:hover {
 }
 
 code {
-  background: rgba(127, 127, 127, 0.2);
+  background: rgb(127 127 127 / 0.2);
   padding: 0.1em 0.35em;
   border-radius: 6px;
 }
