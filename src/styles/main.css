@@ -164,6 +164,25 @@ body {
   }
 }
 
+/* --- Learner markup (Lesson 0004): bare #search-form, no classes yet --- */
+#search-form {
+  max-width: 680px;
+  margin: 3rem auto 1rem;
+  padding: 0 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+#search-input {
+  flex: 1;
+  font: inherit;
+  padding: 0.65rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--card);
+  color: var(--fg);
+}
+
 button {
   font: inherit;
   padding: 0.6rem 1.2rem;
@@ -172,6 +191,26 @@ button {
   background: var(--accent);
   color: var(--accent-ink);
   cursor: pointer;
+}
+
+/* --- Learner markup (Lesson 0005): form + toggle + card as body siblings --- */
+.weather-card {
+  max-width: 680px;
+  margin: 1rem auto;
+  padding: 0 1.25rem;
+}
+
+.weather-card:empty {
+  display: none;
+}
+
+.weather-card p {
+  margin: 0.3rem 0;
+}
+
+.unit-toggle {
+  display: block;
+  margin: 0 auto;
 }
 
 button:hover {
