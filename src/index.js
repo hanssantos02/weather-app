@@ -1,7 +1,7 @@
 import './styles/main.css';
 import { fetchWeather } from './api.js';
 import { toContract } from './process.js';
-import { render } from './ui.js';
+import { render, setStatus, clearCard } from './ui.js';
 
 // const raw = await fetchWeather('Batangas, Philippines');
 // console.log(toContract(raw));
@@ -17,10 +17,13 @@ searchForm.addEventListener('submit', async (e) => {
   if (!search) return;
   lastLocation = search;
   try {
+    setStatus('Searching...', 'loading');
     const raw = await fetchWeather(search, unit);
     render(toContract(raw), unit);
-  } catch (error) {
-    console.error('Search failed:', error.message);
+    setStatus('', 'idle');
+  } catch {
+    setStatus('City not Found', 'error');
+    clearCard();
   }
 });
 
@@ -29,9 +32,12 @@ unitBtn.addEventListener('click', async () => {
   unitBtn.ariaPressed = String(unit === 'metric');
   if (!lastLocation) return;
   try {
+    setStatus('Searching...', 'loading');
     const raw = await fetchWeather(lastLocation, unit);
     render(toContract(raw), unit);
-  } catch (error) {
-    console.error('Search Failed', error.message);
+    setStatus('', 'idle');
+  } catch {
+    setStatus('City not Found', 'error');
+    clearCard();
   }
 });

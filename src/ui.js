@@ -30,4 +30,19 @@ export function render(contract, unit) {
   maxTemp.classList.add('temp');
 
   weatherCard.append(location, temp, feelsLike, conditions, humidity, windSpeed, icon, maxTemp);
+  document.body.dataset.conditions = contract.icon;
+}
+
+export function setStatus(message, state = 'idle') {
+  const status = document.querySelector('.status');
+  if (state === 'loading') {
+    status.innerHTML = '<span class="spinner" aria-hidden="true"></span> Searching...';
+  } else {
+    status.textContent = message;
+  }
+  status.dataset.state = state;
+}
+
+export function clearCard() {
+  document.querySelector('.weather-card').innerHTML = '';
 }

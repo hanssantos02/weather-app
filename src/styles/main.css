@@ -23,11 +23,22 @@
   }
 }
 
-/* Dynamic-look hooks for later (Lesson 0006): body[data-conditions="rain"] etc. */
+/* Dynamic-look hooks (Lesson 0006): full Visual Crossing icon set. */
 body[data-conditions='clear-day'] { --bg: #dff0ff; }
+body[data-conditions='clear-night'] { --bg: #1b2340; --fg: #e8ecf5; }
+body[data-conditions='partly-cloudy-day'] { --bg: #e4ecf5; }
+body[data-conditions='partly-cloudy-night'] { --bg: #232c47; --fg: #e8ecf5; }
+body[data-conditions='cloudy'] { --bg: #dde3ec; }
 body[data-conditions='rain'] { --bg: #cfd9e6; }
 body[data-conditions='snow'] { --bg: #eef2f7; }
-body[data-conditions='cloudy'] { --bg: #dde3ec; }
+body[data-conditions='sleet'] { --bg: #e2e8f0; }
+body[data-conditions='wind'] { --bg: #dfe7ef; }
+body[data-conditions='fog'] { --bg: #e3e1d8; }
+body[data-conditions='thunder-rain'],
+body[data-conditions='thunder-showers-day'],
+body[data-conditions='thunder-showers-night'],
+body[data-conditions='showers-day'],
+body[data-conditions='showers-night'] { --bg: #c9d2e0; }
 
 * {
   box-sizing: border-box;
@@ -138,9 +149,13 @@ body {
 }
 
 .status {
+  max-width: 680px;
+  margin: 0.5rem auto;
+  padding: 0 1.25rem;
   min-height: 1.6em;
   color: var(--muted);
   font-size: 0.95rem;
+  text-align: center;
 }
 
 .status[data-state='error'] {
